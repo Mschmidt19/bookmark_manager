@@ -17,7 +17,7 @@ Users manage their bookmarks
 
 ```
 As a user of the web
-I want to be able to see a list of bookmarks that I have saved
+I would like to be able to see a list of bookmarks that I have saved
 So that I can visit them again
 ```
 ```

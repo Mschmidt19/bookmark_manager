@@ -1,7 +1,11 @@
 require 'sinatra/base'
+require 'sinatra/flash'
 require './models/bookmark.rb'
 
 class BookmarkManager < Sinatra::Base
+
+register Sinatra::Flash
+enable :sessions
 
 get '/' do
   erb :index
@@ -12,8 +16,13 @@ get '/manager' do
 end
 
 post '/manager' do
-  Bookmark.add(params[:title], params[:url])
-  redirect '/manager'
+  if Bookmark.valid_url?(params[:url])
+    Bookmark.add(params[:title], params[:url])
+    redirect '/bookmarks'
+  else
+    flash[:invalid_url] = "Please enter a valid URL mate"
+    redirect '/manager'
+  end
 end
 
 get '/bookmarks' do

@@ -1,16 +1,15 @@
-require_relative './setup_test_database.rb'
-require_relative './web_helpers.rb'
-
 ENV['RACK_ENV'] = 'test'
 
 # Bring in the contents of the `app.rb` file
 require File.join(File.dirname(__FILE__), '..', 'app.rb')
 
-# Require all the testing gems
+# Require all the testing gems & files
 require 'capybara'
 require 'capybara/rspec'
 require 'pg'
 require 'rspec'
+require_relative './setup_test_database.rb'
+require_relative './web_helpers.rb'
 
 # Tell Capybara to talk to BookmarkManager
 Capybara.app = BookmarkManager
