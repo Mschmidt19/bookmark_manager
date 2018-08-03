@@ -16,13 +16,12 @@ get '/manager' do
 end
 
 post '/manager' do
-  if Bookmark.valid_url?(params[:url])
-    Bookmark.add(params[:title], params[:url])
-    redirect '/bookmarks'
+  if Bookmark.add(params[:title], params[:url])
+    flash[:success] = "Successfully added bookmark"
   else
-    flash[:invalid_url] = "Please enter a valid URL mate"
-    redirect '/manager'
+    flash[:error] = "Please enter a valid URL"
   end
+  redirect '/manager'
 end
 
 get '/bookmarks' do

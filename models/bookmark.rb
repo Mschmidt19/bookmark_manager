@@ -16,6 +16,7 @@ class Bookmark
   end
 
   def self.add(new_title, new_url)
+    return false unless valid_url?(new_url)
     if ENV['RACK_ENV'] == 'development'
       connection = PG.connect(dbname: 'bookmark_manager')
     elsif ENV['RACK_ENV'] == 'test'
@@ -23,6 +24,8 @@ class Bookmark
     end
     connection.exec "INSERT INTO bookmarks (title, url) VALUES ('#{new_title}', '#{new_url}')"
   end
+
+  private
 
   def self.valid_url?(url)
     url =~ /\A#{URI::regexp(['http', 'https'])}\z/
